@@ -14,7 +14,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1V3o6SWZ8uTtdN3HB8p5SasMKrZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -89,6 +93,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="913" y="334" key="CommitChangelistDialog2" timestamp="1576597775554">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="913" y="334" key="CommitChangelistDialog2/2560.271.1920.1057/0.23.2560.1417@0.23.2560.1417" timestamp="1576597775554" />
     <state width="2539" height="408" key="GridCell.Tab.0.bottom" timestamp="1576596920868">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
@@ -125,5 +133,9 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="959" y="564" key="com.intellij.ide.util.TipDialog/2560.271.1920.1057/0.23.2560.1417@0.23.2560.1417" timestamp="1576581377266" />
+    <state x="980" y="530" key="git4idea.merge.GitPullDialog" timestamp="1576597790625">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="980" y="530" key="git4idea.merge.GitPullDialog/2560.271.1920.1057/0.23.2560.1417@0.23.2560.1417" timestamp="1576597790625" />
   </component>
 </project>
