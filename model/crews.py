@@ -9,6 +9,7 @@ class Crews(object):
     def __init__(self, sql_manager):
         self.sql_manager = sql_manager
         self.json_path = "cache/2019_12_07_crews.json"
+        self.data = {}
 
     def init_data(self):
         if not os.path.exists(self.json_path):
@@ -28,32 +29,51 @@ class Crews(object):
         self.write_json()
 
     def write_json(self):
+        print("WRITE JSON")
+        print(self.data)
         with open(self.json_path, 'w') as out:
             json.dump(self.data, out)
 
     def update(self, crews):
         phones = crews['phones']
         for p in phones:
-            if p in self.get_all_phones():
-                continue
-            else:
-                self.add_phone(p)
+            self.add_phone(p)
 
-    def get_all_phones(self):
-        return self.data.keys()
+        self.clean_unregistered(phones)
 
-    def add_phone(self, phone):
-        try:
-            user = self.sql_manager.get_user_by_phone(phone)
+    def clean_unregistered(self, registered):
+        cnt = 0
+        for p in self.get_all_phones():
+            if p not in registered and p in self.data:
+                cnt += 1
+                del(self.data[p])
 
-            self.data[phone] = {'name': user.get_name(),
-                                'note': "",
-                                'send_msg': False
-                                }
+        if cnt > 0:
             self.write_json()
 
-        except Exception as e:
-            print(str(e))
+
+    def get_all_phones(self):
+        phones = []
+        for p in self.data.keys():
+            phones.append(p)
+        return phones
+
+    def add_phone(self, phone, name=None):
+        if phone in self.get_all_phones():
+            return
+
+        if name is None:
+            try:
+                name = (self.sql_manager.get_user_by_phone(phone)).get_name()
+            except Exception as e:
+                print(str(e))
+                return
+
+        self.data[phone] = {'name': name,
+                            'note': "",
+                            'send_msg': False
+                            }
+        self.write_json()
 
 
 

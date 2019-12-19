@@ -37,6 +37,9 @@ class FBManager(object):
             users.append(user)
         return users
 
+    def push_crew(self, phones):
+        path = "crews/{0}/".format(self.date)
+        db.reference(path).update({'phones' : phones, 'total' : len(phones)})
 
 
     def close(self):

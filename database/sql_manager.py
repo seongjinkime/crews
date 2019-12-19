@@ -65,3 +65,20 @@ class SQLManager(object):
         user.set_name(data[1])
         return user
 
+    def get_matched_user(self, text):
+        matched = []
+
+        cmd = "SELECT * FROM {0} ".format(self.table)
+        cmd += "WHERE PHONE LIKE '%{0}%' OR ".format(text)
+        cmd += "NAME LIKE '%{0}%' ".format(text)
+        cmd += "LIMIT 10; "
+        c = sqlite3.connect(self.db_path).cursor()
+        c.execute(cmd)
+
+        for data in c.fetchall():
+            info = "{0} | {1}".format(data[0], data[1])
+            matched.append(info)
+
+        return matched
+
+

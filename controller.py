@@ -36,6 +36,7 @@ class Controller(object):
         self.view = widget
         self.view.complete_event.connect(self.complete)
         self.view.close_event.connect(self.quit)
+        self.view.check_in_event.connect(self.check_in)
 
     def update_crews(self, event):
         data = event.data
@@ -52,8 +53,14 @@ class Controller(object):
 
     def start(self):
         self.fb_manager.register_callback_of_crews(self.update_crews)
+        self.view.set_sql_manager_for_completer(self.sql_manager)
         #self.view.update_data(self.crews.get_data())
         self.view.show()
+
+    def check_in(self, phone, name):
+        self.crews.add_phone(phone, name)
+        self.fb_manager.push_crew(self.crews.get_all_phones())
+        self.view.clean()
 
     def complete(self):
         print("COMPLETE")
