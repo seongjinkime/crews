@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .crews_ui import Ui_Crews
 from .completer import Completer
+from .add_user_dialog import AddUserDialog
 
 class MainWidget(QtWidgets.QWidget):
 
@@ -11,6 +12,7 @@ class MainWidget(QtWidgets.QWidget):
     close_event = QtCore.pyqtSignal()
     complete_event = QtCore.pyqtSignal()
     check_in_event = QtCore.pyqtSignal(str, str)
+    add_user_event = QtCore.pyqtSignal(dict)
 
     def __init__(self):
         super().__init__()
@@ -21,14 +23,13 @@ class MainWidget(QtWidgets.QWidget):
         self.completer = Completer()
         self.ui.input_line_edit.setCompleter(self.completer)
         self.ui.complete_button.clicked.connect(self.emit_complete)
+        self.ui.add_user_pushButton.clicked.connect(self.add_user)
         self.completer.setCompletionMode(QtWidgets.QCompleter.UnfilteredPopupCompletion)
         self.completer.activated.connect(self.do_check_in, QtCore.Qt.QueuedConnection)
         self.completer.activated.connect(self.ui.input_line_edit.clear, QtCore.Qt.QueuedConnection)
 
-        #self.ui.input_line_edit.returnPressed.connect(self.check_in)
 
     def update_data(self, data):
-        print(data)
         for phone, info in data.items():
             if phone in self.phones:
                 continue
@@ -49,6 +50,13 @@ class MainWidget(QtWidgets.QWidget):
     def clean(self):
         self.ui.input_line_edit.clear()
 
+    def add_user(self):
+        dialog = AddUserDialog()
+        dialog.exec_()
+        if dialog.info == {}:
+            return
+
+        self.add_user_event.emit(dialog.info)
 
 
     def set_sql_manager_for_completer(self, sql_manager):

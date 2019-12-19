@@ -41,6 +41,12 @@ class FBManager(object):
         path = "crews/{0}/".format(self.date)
         db.reference(path).update({'phones' : phones, 'total' : len(phones)})
 
+    def add_user(self, info):
+        path = "users/{0}".format(info['phone'])
+        info['history'] = []
+        info['visitCount'] = 0
+        db.reference(path).update(info)
+
 
     def close(self):
         try:

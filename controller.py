@@ -37,6 +37,7 @@ class Controller(object):
         self.view.complete_event.connect(self.complete)
         self.view.close_event.connect(self.quit)
         self.view.check_in_event.connect(self.check_in)
+        self.view.add_user_event.connect(self.add_user)
 
     def update_crews(self, event):
         data = event.data
@@ -52,9 +53,9 @@ class Controller(object):
         self.view.update_data(self.crews.get_data())
 
     def start(self):
-        self.fb_manager.register_callback_of_crews(self.update_crews)
+        #self.fb_manager.register_callback_of_crews(self.update_crews)
         self.view.set_sql_manager_for_completer(self.sql_manager)
-        #self.view.update_data(self.crews.get_data())
+        self.view.update_data(self.crews.get_data())
         self.view.show()
 
     def check_in(self, phone, name):
@@ -62,8 +63,14 @@ class Controller(object):
         self.fb_manager.push_crew(self.crews.get_all_phones())
         self.view.clean()
 
+    def add_user(self, info):
+        try:
+            self.fb_manager.add_user(info)
+            self.check_in(info['phone'], info['name'])
+        except Exception as e:
+            print(str(e))
+
     def complete(self):
-        print("COMPLETE")
         phones = self.crews.get_all_phones()
         users = self.fb_manager.get_full_informations(phones)
         self.writer.create_crews_document(users)

@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/crews.ui'
+# Form implementation generated from reading ui file 'crews.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .crews_table import CrewsTable
+from ui.crews_table import CrewsTable
+
 
 class Ui_Crews(object):
     def setupUi(self, Crews):
         Crews.setObjectName("Crews")
-        Crews.resize(572, 904)
+        Crews.resize(540, 820)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(Crews)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -41,14 +42,20 @@ class Ui_Crews(object):
         self.table_vertical_layout = QtWidgets.QVBoxLayout()
         self.table_vertical_layout.setContentsMargins(5, 5, 5, 5)
         self.table_vertical_layout.setObjectName("table_vertical_layout")
-        self.crews_table = CrewsTable()
+        self.crews_table = CrewsTable(Crews)
         self.crews_table.setObjectName("crews_table")
+
         self.table_vertical_layout.addWidget(self.crews_table)
         self.main_layout.addLayout(self.table_vertical_layout)
         self.bottom_horizontal_layout = QtWidgets.QHBoxLayout()
         self.bottom_horizontal_layout.setObjectName("bottom_horizontal_layout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.bottom_horizontal_layout.addItem(spacerItem)
+        self.add_user_pushButton = QtWidgets.QPushButton(Crews)
+        self.add_user_pushButton.setMinimumSize(QtCore.QSize(150, 50))
+        self.add_user_pushButton.setMaximumSize(QtCore.QSize(150, 50))
+        self.add_user_pushButton.setObjectName("add_user_pushButton")
+        self.bottom_horizontal_layout.addWidget(self.add_user_pushButton)
         self.complete_button = QtWidgets.QPushButton(Crews)
         self.complete_button.setMinimumSize(QtCore.QSize(150, 50))
         self.complete_button.setMaximumSize(QtCore.QSize(150, 50))
@@ -65,6 +72,7 @@ class Ui_Crews(object):
         Crews.setWindowTitle(_translate("Crews", "Crews"))
         self.title_lable.setText(_translate("Crews", "  Crews"))
         self.check_in_button.setText(_translate("Crews", " Check In"))
+        self.add_user_pushButton.setText(_translate("Crews", "새 손님"))
         self.complete_button.setText(_translate("Crews", "작성 완료"))
 
 
