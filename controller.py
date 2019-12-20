@@ -3,6 +3,7 @@ from database.sql_manager import SQLManager
 from model.crews import Crews
 from modules.writer import Writer
 import subprocess
+import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -16,6 +17,7 @@ class Controller(object):
     sql_manager = None
     crews = None
     writer = None
+    recent_query = None
 
     def __init__(self):
         self.fb_manager = FBManager()
@@ -38,6 +40,10 @@ class Controller(object):
         self.view.close_event.connect(self.quit)
         self.view.check_in_event.connect(self.check_in)
         self.view.add_user_event.connect(self.add_user)
+        self.view.ui.crews_table.cancel_event.connect(self.cancel_abroad)
+        self.view.ui.crews_table.note_edit_event.connect(self.edit_note)
+        self.view.ui.crews_table.cell_click_event.connect(self.show_user_info)
+
 
     def update_crews(self, event):
         data = event.data
@@ -48,14 +54,15 @@ class Controller(object):
 
         if not_dict(data) or 'phones' not in data:
             return
-
+        print("data from fb")
+        print(data)
         self.crews.update(data)
         self.view.update_data(self.crews.get_data())
 
     def start(self):
-        #self.fb_manager.register_callback_of_crews(self.update_crews)
+        self.fb_manager.register_callback_of_crews(self.update_crews)
         self.view.set_sql_manager_for_completer(self.sql_manager)
-        self.view.update_data(self.crews.get_data())
+        #self.view.update_data(self.crews.get_data())
         self.view.show()
 
     def check_in(self, phone, name):
@@ -70,13 +77,30 @@ class Controller(object):
         except Exception as e:
             print(str(e))
 
+    def cancel_abroad(self, row, phone):
+        self.crews.del_phone(phone)
+        self.fb_manager.push_crew(self.crews.get_all_phones())
+        self.view.remove_info(row, phone)
+
+
+    def edit_note(self, phone, note):
+        self.crews.edit_note(phone, note)
+
+    def show_user_info(self, phone):
+        if self.recent_query == phone:
+            return
+        user_info = self.fb_manager.get_full_informations([phone])[0]
+        self.view.show_user_info(user_info)
+        self.recent_query = phone
+
     def complete(self):
         phones = self.crews.get_all_phones()
         users = self.fb_manager.get_full_informations(phones)
         self.writer.create_crews_document(users)
-        subprocess.call(['open', self.writer.get_file_path()])
+        os.system(self.writer.get_file_path())
+        #subprocess.call(['open', self.writer.get_file_path()])
 
 
     def quit(self):
-        self.view.hide()
         self.fb_manager.close()
+        self.view.hide()

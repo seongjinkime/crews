@@ -1,12 +1,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSlot
 from .messenger import Messenger
+
+
+
 class CrewsTable(QtWidgets.QTableWidget):
 
-    cancel_event = QtCore.pyqtSignal(str)
+    cancel_event = QtCore.pyqtSignal(int, str)
+    note_edit_event = QtCore.pyqtSignal(str, str)
+    cell_click_event = QtCore.pyqtSignal(str)
 
     def __init__(self, parent):
         super().__init__(parent)
+
         self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.setColumnCount(4)
         # column names
         self.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem("번호"))
@@ -14,10 +22,12 @@ class CrewsTable(QtWidgets.QTableWidget):
         self.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem("이름"))
         self.setHorizontalHeaderItem(3, QtWidgets.QTableWidgetItem("비고"))
         # column sizes
-        self.setRowCount(20)
+        #self.setRowCount(20)
         self.setColumnWidth(0, 30)
         self.setColumnWidth(1, 130)
         self.setColumnWidth(2, 100)
+
+        self.cellChanged.connect(self.note_edit)
 
         self.horizontalHeader().setStretchLastSection(True)
         self.verticalHeader().setVisible(False)
@@ -28,8 +38,11 @@ class CrewsTable(QtWidgets.QTableWidget):
         cancle.triggered.connect(self.cancle_abroad)
         self.addAction(cancle)
 
+        self.cellClicked.connect(self.item_clicked)
+
+
     def add_row(self, idx, phone, info):
-        #self.insertRow(idx)
+        self.insertRow(idx)
         number = QtWidgets.QTableWidgetItem(str(idx + 1))
         number.setTextAlignment(QtCore.Qt.AlignCenter)
         number.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
@@ -65,4 +78,38 @@ class CrewsTable(QtWidgets.QTableWidget):
         if ans != 'OK':
             return
 
-        self.cancel_event.emit(phone)
+        self.cancel_event.emit(row, phone)
+
+    def remove(self, row):
+        self.removeRow(row)
+        for row in range(self.rowCount()):
+            item = self.item(row, 0)
+            if item is None:
+                continue
+            item.setText(str(row+1))
+
+    @pyqtSlot(int, int)
+    def note_edit(self, row, col):
+        if col is not 3:
+            return
+        phone_item = self.item(row, 1)
+        if phone_item is None:
+            return
+
+        phone = phone_item.text()
+        note = self.item(row, col).text()
+        print("NOTE EDIT")
+        print(col)
+
+        self.note_edit_event.emit(phone, note)
+
+    def item_clicked(self, row, col):
+        phone_item = self.item(row, 1)
+        if phone_item is None:
+            return
+        phone = phone_item.text()
+        self.cell_click_event.emit(phone)
+
+
+
+

@@ -9,7 +9,8 @@ class Writer(object):
     row = 5
 
     def __init__(self):
-        self.excel_path = "documents/2019_12_07_crews.xlsx"
+        #self.excel_path = "documents/2019_12_07_crews.xlsx"
+        self.excel_path = "C:/Users/admin/Documents/projects/crews/documents/2019_12_07_crews.xlsx"
 
     def open_excel(self):
         if os.path.exists(self.excel_path):

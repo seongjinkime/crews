@@ -6,151 +6,693 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>820</height>
+    <width>729</width>
+    <height>876</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Crews</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background: rgb(248, 249, 253);
+
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
    <item>
-    <layout class="QVBoxLayout" name="main_layout">
-     <property name="bottomMargin">
-      <number>5</number>
-     </property>
+    <layout class="QHBoxLayout" name="title_horizontal_layout">
      <item>
       <widget class="QLabel" name="title_lable">
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>42</height>
+         <height>50</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>42</height>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="font">
         <font>
+         <family>맑은 고딕</family>
          <pointsize>20</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+         <underline>false</underline>
+         <stylestrategy>PreferAntialias</stylestrategy>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	color : rgb(70, 70, 70);
+
+}</string>
+       </property>
        <property name="text">
-        <string>  Crews</string>
+        <string>승선명부</string>
        </property>
        <property name="margin">
         <number>0</number>
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QHBoxLayout" name="input_horizontal_layout">
-       <property name="leftMargin">
-        <number>5</number>
-       </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QLineEdit" name="input_line_edit"/>
+        <layout class="QHBoxLayout" name="date_info_horizontal_layout">
+         <item>
+          <widget class="QLabel" name="count_title_label">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>돋움</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel{
+	color : rgb(47,127,247);
+}</string>
+           </property>
+           <property name="text">
+            <string>탑승 인원</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="count_label">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="date_title_label">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>돋움</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLabel{
+	color : rgb(47,127,247);
+}</string>
+           </property>
+           <property name="text">
+            <string>출항 일</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="date_label">
+           <property name="text">
+            <string>2019.12.20</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="check_in_button">
-         <property name="text">
-          <string> Check In</string>
+        <layout class="QHBoxLayout" name="input_horizontal_layout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLineEdit" name="input_line_edit">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit{
+	background : white;
+	border-style:solid;
+	border-width:0.5px;
+	border-radius : 5px;
+	border-color: rgba(47, 127, 247, 128);
+}</string>
+           </property>
+           <property name="placeholderText">
+            <string>전화번호 혹은 이름을 입력하세요 </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="crews_table">
+         <property name="minimumSize">
+          <size>
+           <width>450</width>
+           <height>600</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <underline>false</underline>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTableWidget{
+	background: white;
+	border-style:solid;
+	border-width:0.5px;
+	border-radius : 5px;
+	border-color: rgb(213, 213, 213);
+}</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="table_vertical_layout">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="leftMargin">
         <number>5</number>
        </property>
-       <property name="topMargin">
-        <number>5</number>
-       </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>5</number>
-       </property>
        <item>
-        <widget class="QTableWidget" name="crews_table"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="bottom_horizontal_layout">
-       <item>
-        <spacer name="horizontal_spacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
+        <widget class="QLabel" name="info_title_label">
+         <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>0</width>
+           <height>65</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>65</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>돋움</family>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	color : rgb(47,127,247);
+}</string>
+         </property>
+         <property name="text">
+          <string>손님 정보</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="into_horizontal_layout">
+         <item>
+          <layout class="QVBoxLayout" name="info_left_vertical_layout">
+           <item>
+            <widget class="QLabel" name="name_title_label">
+             <property name="minimumSize">
+              <size>
+               <width>75</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>돋움</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel{
+	color : rgb(90, 90, 90);
+}</string>
+             </property>
+             <property name="text">
+              <string>이름</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sex_title_label">
+             <property name="minimumSize">
+              <size>
+               <width>75</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>돋움</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel{
+	color : rgb(90, 90, 90);
+}</string>
+             </property>
+             <property name="text">
+              <string>성별</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="phone_title_label">
+             <property name="minimumSize">
+              <size>
+               <width>75</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>돋움</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel{
+	color : rgb(90, 90, 90);
+}</string>
+             </property>
+             <property name="text">
+              <string>전화번호</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="emergency_title_label">
+             <property name="minimumSize">
+              <size>
+               <width>75</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>75</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>돋움</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel{
+	color : rgb(90, 90, 90);
+}</string>
+             </property>
+             <property name="text">
+              <string>비상 연락망</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="info_right_vertical_layout">
+           <item>
+            <widget class="QLabel" name="name_info_label">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777205</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sex_info_label">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="phone_info_label">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="emegerncy_info_label">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="address_title_label">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
            <height>20</height>
           </size>
          </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="add_user_pushButton">
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>50</height>
-          </size>
-         </property>
          <property name="maximumSize">
           <size>
-           <width>150</width>
-           <height>50</height>
+           <width>16777215</width>
+           <height>20</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>돋움</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	color : rgb(47,127,247);
+}</string>
+         </property>
          <property name="text">
-          <string>새 손님</string>
+          <string>주소</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="complete_button">
+        <widget class="QTextEdit" name="address_text_edit">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTextEdit{
+	background: white;
+	border-style:solid;
+	border-width:0.5px;
+	border-radius : 5px;
+	border-color: rgb(213, 213, 213);
+}
+</string>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="history_title_label">
          <property name="minimumSize">
           <size>
-           <width>150</width>
-           <height>50</height>
+           <width>220</width>
+           <height>30</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>150</width>
-           <height>50</height>
+           <width>220</width>
+           <height>30</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>돋움</family>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	color : rgb(47,127,247);
+}</string>
+         </property>
          <property name="text">
-          <string>작성 완료</string>
+          <string>탑승 기록 </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="history_list_widget">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QListView{
+	background: white;
+	border-style:solid;
+	border-width:0.5px;
+	border-radius : 5px;
+	border-color: rgb(213, 213, 213);
+}</string>
          </property>
         </widget>
        </item>
       </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="bottom_horizontal_layout">
+     <item>
+      <spacer name="horizontal_spacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="add_user_pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>120</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(157, 157, 157);
+	border-radius:3px;
+	color:white;
+}
+QPushButton:hover {
+    background-color:rgb(197, 197, 197);
+}
+
+QPushButton:pressed {
+    background-color:rgb(180, 180, 180);
+}</string>
+       </property>
+       <property name="text">
+        <string>새 손님</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="complete_button">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>120</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color:rgba(47,127,247);
+	
+	border-radius:3px;
+	color:white;
+}
+QPushButton:hover {
+    background-color: rgb(31, 84, 165);
+}
+
+QPushButton:pressed {
+    background-color: rgb(24, 66, 129);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>작성 완료</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

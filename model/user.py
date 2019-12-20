@@ -3,6 +3,7 @@ class User(object):
 
     phone = None
     name = None
+    sex = None
     address = None
     registration = None
     history = None
@@ -18,9 +19,12 @@ class User(object):
         self.set_name(data['name'])
         self.set_address(data['address'])
         self.set_registration(data['registration'])
-        self.set_history(data['history'])
+        self.set_sex(data['sex'])
         self.set_visit_count(data['visitCount'])
         self.set_emergency(data['emergency'])
+
+        if 'history' in data:
+            self.set_history(data['history'])
 
     def get_phone(self):
         return self.phone
@@ -64,4 +68,8 @@ class User(object):
     def set_emergency(self, emergency):
         self.emergency = emergency
 
+    def get_sex(self):
+        return self.sex
 
+    def set_sex(self, sex):
+        self.sex = sex

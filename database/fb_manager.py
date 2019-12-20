@@ -18,6 +18,7 @@ class FBManager(object):
             'databaseURL' : 'https://fishingmanager-4f88b.firebaseio.com'
         })
 
+
     def get_users(self):
         return db.reference("users").get()
 

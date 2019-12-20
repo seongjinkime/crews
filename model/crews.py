@@ -40,17 +40,18 @@ class Crews(object):
             self.add_phone(p)
 
         self.clean_unregistered(phones)
+        print("AFTER UPDATE")
+        print(self.get_all_phones())
 
     def clean_unregistered(self, registered):
         cnt = 0
         for p in self.get_all_phones():
-            if p not in registered and p in self.data:
+            if p not in registered:
                 cnt += 1
-                del(self.data[p])
+                self.del_phone(p)
 
         if cnt > 0:
             self.write_json()
-
 
     def get_all_phones(self):
         phones = []
@@ -75,8 +76,21 @@ class Crews(object):
                             }
         self.write_json()
 
+    def del_phone(self, phone):
+        if phone not in self.get_all_phones():
+            return
+
+        del (self.data[phone])
 
 
+
+    def edit_note(self, phone, note):
+        if phone not in self.get_all_phones():
+            return
+        if note == self.data[phone]['note']:
+            return
+        self.data[phone]['note'] = note
+        self.write_json()
 
 
 
