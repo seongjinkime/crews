@@ -2,13 +2,17 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from model.user import User
+from PyQt5 import QtCore, QtWidgets
 
-class FBManager(object):
+class FBManager(QtCore.QObject):
 
     registration = None
     date = "2019/12/07"
+    queried = QtCore.pyqtSignal(list)
+    closed = QtCore.pyqtSignal()
 
     def __init__(self):
+        super().__init__()
         print("FB Manager init")
 
     def auth_db(self):
@@ -29,6 +33,7 @@ class FBManager(object):
         empty = {'date' : '2019/12/08', 'phones' : [], 'total' : 0}
         db.reference("crews/{0}".format(self.date)).update(empty)
 
+    @QtCore.pyqtSlot(list)
     def get_full_informations(self, phones):
         users = []
         for p in phones:
@@ -36,6 +41,8 @@ class FBManager(object):
             user = User()
             user.parse_data_using_dict(data)
             users.append(user)
+        self.moveToThread(QtWidgets.QApplication.instance().thread())
+        self.queried.emit(users)
         return users
 
     def push_crew(self, phones):
@@ -48,9 +55,12 @@ class FBManager(object):
         info['visitCount'] = 0
         db.reference(path).update(info)
 
-
+    @QtCore.pyqtSlot()
     def close(self):
+        print("Closing...")
         try:
             self.registration.close()
+            self.closed.emit()
+            print("closed")
         except Exception as e:
             print(str(e))

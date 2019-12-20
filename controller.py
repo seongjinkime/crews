@@ -3,13 +3,13 @@ from database.sql_manager import SQLManager
 from model.crews import Crews
 from modules.writer import Writer
 import subprocess
+import functools
 import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 def not_dict(data):
     return str(type(data)) != "<class 'dict'>"
-
 
 class Controller(object):
     view = None
@@ -27,6 +27,8 @@ class Controller(object):
         self.crews.init_data()
         self.init_db()
 
+
+
     def init_db(self):
         self.fb_manager.auth_db()
         self.sql_manager.connect_db()
@@ -37,7 +39,7 @@ class Controller(object):
     def set_view(self, widget):
         self.view = widget
         self.view.complete_event.connect(self.complete)
-        self.view.close_event.connect(self.quit)
+        self.view.close_event.connect(self.close)
         self.view.check_in_event.connect(self.check_in)
         self.view.add_user_event.connect(self.add_user)
         self.view.ui.crews_table.cancel_event.connect(self.cancel_abroad)
@@ -82,7 +84,6 @@ class Controller(object):
         self.fb_manager.push_crew(self.crews.get_all_phones())
         self.view.remove_info(row, phone)
 
-
     def edit_note(self, phone, note):
         self.crews.edit_note(phone, note)
 
@@ -95,12 +96,37 @@ class Controller(object):
 
     def complete(self):
         phones = self.crews.get_all_phones()
-        users = self.fb_manager.get_full_informations(phones)
-        self.writer.create_crews_document(users)
-        os.system(self.writer.get_file_path())
-        #subprocess.call(['open', self.writer.get_file_path()])
+        self.query_thread = QtCore.QThread()
+        self.fb_manager.moveToThread(self.query_thread)
+        self.fb_manager.queried.connect(self.write_document)
+        self.query_thread.started.connect(functools.partial(self.fb_manager.get_full_informations, phones))
+        self.query_thread.finished.connect(self.query_thread.quit)
+        self.query_thread.start()
+        self.view.show_loading_box("문서 작성 중")
 
+    def write_document(self, users):
+        self.writer_thread = QtCore.QThread()
+        self.writer.moveToThread(self.writer_thread)
+        self.writer.finished.connect(self.open_file)
+        self.writer_thread.started.connect(functools.partial(self.writer.create_crews_document, users))
+        self.writer_thread.finished.connect(self.writer_thread.quit)
+        self.writer_thread.start()
+
+    def open_file(self, path):
+        self.view.hide_loading_box()
+        if os.path.exists(path):
+            os.system(path)
+
+    def close(self):
+        self.fb_manager.moveToThread(self.close_thread)
+        self.fb_manager.closed.connect(self.quit)
+        self.close_thread.started.connect(self.fb_manager.close)
+        self.close_thread.finished.connect(self.close_thread.quit)
+        self.close_thread.start()
+        self.view.show_loading_box("종료중")
 
     def quit(self):
-        self.fb_manager.close()
-        self.view.hide()
+        self.view.hide_loading_box()
+        self.view.closed = True
+        self.view.close()
+

@@ -35,3 +35,34 @@ class Messenger(QtCore.QObject):
         msg_box.show()
         msg_box.exec_()
         return msg_box.clickedButton().text()
+
+    def create_loading_box(self, title):
+        try:
+            #Create message box
+            msg_box = QtWidgets.QMessageBox()
+            msg_box.setStandardButtons(QtWidgets.QMessageBox.NoButton)
+            msg_box.setWindowFlags(QtCore.Qt.Dialog | QtCore.Qt.WindowTitleHint | QtCore.Qt.CustomizeWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+            #set gif
+            gif_path = "src/loading_2.gif"
+            gif = QtGui.QPixmap(gif_path).scaled(10, 10)
+            msg_box.setIconPixmap(gif)
+            icon_label = msg_box.findChild(QtWidgets.QLabel, "qt_msgboxex_icon_label")
+            movie = QtGui.QMovie(gif_path)
+            setattr(msg_box, 'icon_label', movie)
+            icon_label.setMovie(movie)
+            movie.start()
+
+            #set center
+            layout = msg_box.layout()
+            print(layout)
+            margin = layout.contentsMargins()
+            margin.setLeft(40)
+            layout.setContentsMargins(margin)
+
+            msg_box.setWindowTitle(title)
+            msg_box.setModal(False)
+            return msg_box
+
+        except Exception as e:
+            print(str(e))
+

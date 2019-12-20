@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from .crews_ui import Ui_Crews
 from .completer import Completer
 from .add_user_dialog import AddUserDialog
+from .messenger import Messenger
 
 class MainWidget(QtWidgets.QWidget):
 
@@ -10,6 +11,10 @@ class MainWidget(QtWidgets.QWidget):
     phones = None
     crews_table = None
     completer = None
+    messenger = None
+    loading_box = None
+    closed = False
+
     close_event = QtCore.pyqtSignal()
     complete_event = QtCore.pyqtSignal()
     check_in_event = QtCore.pyqtSignal(str, str)
@@ -21,7 +26,7 @@ class MainWidget(QtWidgets.QWidget):
         self.ui = Ui_Crews()
 
         self.ui.setupUi(self)
-
+        self.messenger = Messenger()
         self.phones = []
         self.crews_table = self.ui.crews_table
         self.ui.address_text_edit.setReadOnly(True)
@@ -106,11 +111,27 @@ class MainWidget(QtWidgets.QWidget):
         self.phones.remove(phone)
         self.refresh_count()
 
+    def show_loading_box(self, title):
+        if self.loading_box :
+            self.hide_loading_box()
+        self.loading_box = self.messenger.create_loading_box(title)
+        self.loading_box.show()
+
+    def hide_loading_box(self):
+        if self.loading_box is None:
+            return
+        self.loading_box.close()
+        self.loading_box = None
+
     def set_sql_manager_for_completer(self, sql_manager):
         self.completer.set_sql_manager(sql_manager)
 
     def closeEvent(self, QCloseEvent):
-        self.close_event.emit()
+        if self.closed:
+            QCloseEvent.accept()
+        else:
+            QCloseEvent.ignore()
+            self.close_event.emit()
 
     def emit_complete(self):
         self.complete_event.emit()

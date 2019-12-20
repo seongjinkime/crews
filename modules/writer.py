@@ -1,14 +1,17 @@
 import os, shutil
 import openpyxl
+from PyQt5 import QtCore, QtWidgets
 
-class Writer(object):
+class Writer(QtCore.QObject):
     template = "documents/template.xlsx"
     excel_path = None
     excel_file = None
     sheet = None
     row = 5
+    finished = QtCore.pyqtSignal(str)
 
     def __init__(self):
+        super().__init__()
         #self.excel_path = "documents/2019_12_07_crews.xlsx"
         self.excel_path = "C:/Users/admin/Documents/projects/crews/documents/2019_12_07_crews.xlsx"
 
@@ -30,7 +33,7 @@ class Writer(object):
         self.sheet["G" + str(self.row)] = "선원"
         self.row += 1
 
-
+    @QtCore.pyqtSlot(list)
     def create_crews_document(self, users):
         print("Do writing document")
 
@@ -42,6 +45,8 @@ class Writer(object):
 
         self.excel_file.save(self.excel_path)
         print("DONE")
+        self.moveToThread(QtWidgets.QApplication.instance().thread())
+        self.finished.emit(self.excel_path)
 
     def get_file_path(self):
         return self.excel_path

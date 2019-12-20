@@ -109,7 +109,3 @@ class CrewsTable(QtWidgets.QTableWidget):
             return
         phone = phone_item.text()
         self.cell_click_event.emit(phone)
-
-
-
-
