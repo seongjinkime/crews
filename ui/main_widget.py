@@ -123,6 +123,9 @@ class MainWidget(QtWidgets.QWidget):
         self.loading_box.close()
         self.loading_box = None
 
+    def show_msg(self, title, msg, msg_type=Messenger.Warning):
+        self.messenger.show_msg(title, msg, msg_type)
+
     def set_sql_manager_for_completer(self, sql_manager):
         self.completer.set_sql_manager(sql_manager)
 

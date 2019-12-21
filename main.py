@@ -25,19 +25,25 @@ from PyQt5.QtCore import QStringListModel
 
 
 def show_splash(app):
-    img = QtGui.QPixmap("src/splash_test.png")
+    import time
+    img = QtGui.QPixmap("src/splash.png")
     splash = QtWidgets.QSplashScreen(img, QtCore.Qt.WindowStaysOnTopHint)
     splash.setMask(img.mask())
     splash.show()
-    app.processEvents()
+    start = time.time()
+    while time.time() - start < 2:
+        time.sleep(0.001)
+        app.processEvents()
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    show_splash(app)
-    controller = Controller()
     widget = MainWidget()
+    controller = Controller()
     controller.set_view(widget)
+    show_splash(app)
+
+
     controller.start()
     sys.exit(app.exec_())
 
