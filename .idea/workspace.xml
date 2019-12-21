@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="93cd5059-58cd-4ecb-b44d-130e0d5bdb36" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/2019_12_07_crews.json" beforeDir="false" afterPath="$PROJECT_DIR$/cache/2019_12_07_crews.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/users.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documents/2019_12_07_crews.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/documents/2019_12_07_crews.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/writer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loading_1.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loading_3.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loading_4.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/loading_5.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/main_widget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/main_widget.py" afterDir="false" />
-    </list>
+    <list default="true" id="93cd5059-58cd-4ecb-b44d-130e0d5bdb36" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

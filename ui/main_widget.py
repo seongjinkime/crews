@@ -120,6 +120,7 @@ class MainWidget(QtWidgets.QWidget):
     def hide_loading_box(self):
         if self.loading_box is None:
             return
+        
         self.loading_box.close()
         self.loading_box = None
 
